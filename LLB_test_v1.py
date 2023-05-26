@@ -1,45 +1,40 @@
+#import random module
 import random
-#these are bad choices
-trap = "You fell in to a Trap"
-fire = "You’ve caught on Fire"
-monkeys = "You’ve got beat up by monkeys"
-#this is the deadly choice
-drown = "You’ve drowned"
-#these are right choices
-bridge = "You found the bridge"
-river = "You found the river"
-route = "You found a route"
-boat = "You found a boat"
-lighthouse = "You found the lighthouse"
-#this is the winning choice
-home = "you found home"
-right_choices = [bridge, river, route, boat, lighthouse]
-wrong_choices = [trap, fire, monkeys]
-wrong = random.choice(wrong_choices)
-right = random.choice(right_choices)
-choices = [right, wrong, home,drown]
-print ("where am I?")
-a = input()
-print("I am totally lost")
-a = input()
-print("I have to find the way back home")
-step = 10
-while step >= 0:
-    timmy = input("which way should I go? Right or left: ")
-    step = step - 1
-    if timmy == "right":
-        choice = random.choice(choices)
-        print(choice)
-        choices.remove(choice)
-    elif timmy == "left":
-        choice = random.choice(choices)
-        print(choice)
-        choices.remove(choice)
-    elif choice == drown :
-        print("you died")
-        break
-    elif choice == home :
-        print("you survived")
-        break
-print("game over")
-a = input()
+
+#define variables
+timmy_home = False
+score = 0
+
+#define functions
+def find_home():
+    global timmy_home
+    global score
+    timmy_home = True
+    score += 10
+    print("You found your way home! You win!")
+
+def get_lost():
+    global timmy_home
+    global score
+    timmy_home = False
+    score -= 5
+    print("You got lost! You have to start over.")
+
+#main game loop
+while not timmy_home:
+    #generate random number
+    rand_num = random.randint(1, 10)
+    #check if random number is 1 or 2
+    if rand_num == 1:
+        find_home()
+    elif rand_num == 2:
+        get_lost()
+    else:
+        #generate random number for positive or negative outcome
+        rand_num_2 = random.randint(1, 2)
+        if rand_num_2 == 1:
+            score += 1
+            print("You made a good choice! Your score is now:", score)
+        else:
+            score -= 1
+            print("You made a bad choice! Your score is now:", score)
